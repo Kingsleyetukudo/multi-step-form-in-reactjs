@@ -74,6 +74,15 @@ function PersonalForm() {
         </div>
       </div>
 
+      <div>
+        <p>Monthly</p>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+        <p>Yearly</p>
+      </div>
+
       <div className="mt-auto">
         <FormBtn onClick={checkForm} />
       </div>
