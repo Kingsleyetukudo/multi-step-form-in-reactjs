@@ -1,153 +1,85 @@
 import { useState } from "react";
 import FormBtn from "./FormBtn";
 import FormHeadings from "./FormHeadings";
-import icon1 from "../assets/icon-arcade.svg";
-import icon2 from "../assets/icon-advanced.svg";
-import icon3 from "../assets/icon-pro.svg";
 
 function PersonalForm() {
-  const [heading, setHeading] = useState("Select your plan");
+  const [heading, setHeading] = useState("Pick add-ons");
   const [subHeading, setSubHeading] = useState(
-    "Ypu have the option of monthly or yearly billing."
+    "Add-ons help enchance your gaming experience."
   );
-  const [isToggle, setIsToggle] = useState(false);
-  const [isActive, setIsActive] = useState("arcade");
+  const [isActive, setIsActive] = useState([]);
+  const [isCheck, setIsCheck] = useState(false);
   const [planPrice, setPlanPrice] = useState(9);
 
-  const checkToggle = (e, num) => {
-    setIsToggle(e.target.checked);
-    setPlanPrice(num);
-    console.log(num);
+  const handleCheck = (e) => {
+    if (e.target.checked) {
+      setIsActive([...isActive, e.target.value]);
+      console.log(isActive);
+    } else {
+      setIsActive([isActive.filter((active) => active !== e.target.value)]);
+    }
   };
 
-  const addActive = (card, num) => {
-    setIsActive(card);
-    setPlanPrice(num);
-    console.log(num);
-  };
-
-  const pickPlanPrice = () => {
-    console.log(planPrice, isActive);
-  };
-  const pickPrice = (num) => {
-    console.log(num);
-  };
   return (
     // <section>
     <div className="py-8 px-12 flex flex-col gap-10 h-full">
       <FormHeadings headings={heading} subHeading={subHeading} />
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-rows-1 gap-4">
         <div
-          onClick={() => addActive("arcade", !isToggle ? 9 : 90)}
-          className={`border p-4 flex flex-col gap-8 rounded-md hover:border-Purplish-blue hover:bg-Magnolia ${
-            isActive === "arcade" ? "border-Purplish-blue bg-Magnolia" : ""
+          className={`border p-4 flex items-center gap-8 rounded-md hover:border-Purplish-blue hover:bg-Magnolia ${
+            isActive.includes("onlineService")
+              ? "border-Purplish-blue bg-Magnolia"
+              : ""
           }`}>
           <div>
-            <img src={icon1} alt="Arcade Icon" />
-          </div>
-          <div
-            className=" mt-auto"
-            onChange={() => pickPrice(!isToggle ? 9 : 90)}>
-            <p className="text-Marine-blue font-bold text-base">Arcade</p>
-            {!isToggle ? (
-              <p className="text-Cool-gray text-sm">$9/mo</p>
-            ) : (
-              <div>
-                <p className="text-Cool-gray text-sm">$90/yr</p>
-                <p className="text-Marine-blue text-sm font-medium">
-                  2 months free
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-        <div
-          onClick={() => addActive("advanced", !isToggle ? 12 : 120)}
-          className={`border p-4 flex flex-col gap-8 rounded-md hover:border-Purplish-blue hover:bg-Magnolia ${
-            isActive === "advanced" ? "border-Purplish-blue bg-Magnolia" : ""
-          }`}>
-          <div>
-            <img src={icon2} alt="Advanced Icon" />
+            <input
+              value="onlineService"
+              type="checkbox"
+              onChange={handleCheck}
+            />
           </div>
           <div className=" mt-auto">
-            <p className="text-Marine-blue font-bold text-base">Advaned</p>
-            {!isToggle ? (
-              <p className="text-Cool-gray text-sm">$12/mo</p>
-            ) : (
-              <div>
-                <p className="text-Cool-gray text-sm">$120/yr</p>
-                <p className="text-Marine-blue text-sm font-medium">
-                  2 months free
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-        <div
-          onClick={() => addActive("pro", !isToggle ? 15 : 150)}
-          className={`border p-4 flex flex-col gap-8 rounded-md hover:border-Purplish-blue hover:bg-Magnolia ${
-            isActive === "pro" ? "border-Purplish-blue bg-Magnolia" : ""
-          }`}>
-          <div>
-            <img src={icon3} alt="Pro Icon" />
-          </div>
-          <div className=" mt-auto">
-            <p className="text-Marine-blue font-bold text-base">Pro</p>
-            {!isToggle ? (
-              <p className="text-Cool-gray text-sm">$15/mo</p>
-            ) : (
-              <div>
-                <p className="text-Cool-gray text-sm">$150/yr</p>
-                <p className="text-Marine-blue text-sm font-medium">
-                  2 months free
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+            <p className="text-Marine-blue font-bold text-base">
+              Online service
+            </p>
 
-      <div className="flex items-center justify-center bg-Magnolia p-4 gap-5">
-        <p
-          className={
-            !isToggle ? "font-medium text-Marine-blue" : "text-Cool-gray"
-          }>
-          Monthly
-        </p>
-        <label className="switch">
-          <input
-            type="checkbox"
-            value={isToggle}
-            onChange={(e) =>
-              checkToggle(
-                e,
-                isActive === "arcade" && isToggle
-                  ? 9
-                  : isActive === "arcade" && !isToggle
-                  ? 90
-                  : isActive === "advanced" && isToggle
-                  ? 12
-                  : isActive === "advanced" && !isToggle
-                  ? 120
-                  : isActive === "pro" && isToggle
-                  ? 15
-                  : 150
-              )
-            }
-          />
-          <span className="slider round"></span>
-        </label>
-        <p
-          className={
-            isToggle ? "font-medium text-Marine-blue" : "text-Cool-gray"
-          }>
-          Yearly
-        </p>
+            <p className="text-Cool-gray text-sm">
+              Access to multiplayer games
+            </p>
+          </div>
+          <div className="ml-auto">
+            <p className="text-Purplish-blue text-sm">+$1/mo</p>
+          </div>
+        </div>
+        <div
+          className={`border p-4 flex items-center gap-8 rounded-md hover:border-Purplish-blue hover:bg-Magnolia ${
+            isActive.includes("largerStorage")
+              ? "border-Purplish-blue bg-Magnolia"
+              : ""
+          }`}>
+          <div>
+            <input
+              value="largerStorage"
+              type="checkbox"
+              onChange={handleCheck}
+            />
+          </div>
+          <div className=" mt-auto">
+            <p className="text-Marine-blue font-bold text-base">
+              Larger storage
+            </p>
+
+            <p className="text-Cool-gray text-sm">Extra 1TB of cloud save</p>
+          </div>
+          <div className="ml-auto">
+            <p className="text-Purplish-blue text-sm">+$2/mo</p>
+          </div>
+        </div>
       </div>
 
       <div className="mt-auto">
-        <FormBtn onClick={pickPlanPrice} />
+        <FormBtn />
       </div>
     </div>
     // </section>
