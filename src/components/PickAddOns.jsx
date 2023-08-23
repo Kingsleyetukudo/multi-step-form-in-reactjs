@@ -2,7 +2,7 @@ import { useState } from "react";
 import FormBtn from "./FormBtn";
 import FormHeadings from "./FormHeadings";
 
-function PersonalForm() {
+function PickAddOns() {
   const [heading, setHeading] = useState("Pick add-ons");
   const [subHeading, setSubHeading] = useState(
     "Add-ons help enchance your gaming experience."
@@ -14,10 +14,10 @@ function PersonalForm() {
   const handleCheck = (e) => {
     if (e.target.checked) {
       setIsActive([...isActive, e.target.value]);
-      console.log(isActive);
     } else {
-      setIsActive([isActive.filter((active) => active !== e.target.value)]);
+      setIsActive(isActive.filter((active) => active !== e.target.value));
     }
+    console.log(isActive);
   };
 
   return (
@@ -76,6 +76,35 @@ function PersonalForm() {
             <p className="text-Purplish-blue text-sm">+$2/mo</p>
           </div>
         </div>
+        <div
+          className={`border p-4 flex items-center gap-8 rounded-md hover:border-Purplish-blue hover:bg-Magnolia ${
+            isActive.includes("customizableProfile")
+              ? "border-Purplish-blue bg-Magnolia"
+              : ""
+          }`}>
+          <div>
+            {/* <label className="bg-Pastel-blue flex items-center p-2 m-1 rounded"> */}
+            <input
+              value="customizableProfile"
+              type="checkbox"
+              onChange={handleCheck}
+              className="  checked:bg-blue-500"
+            />
+            {/* </label> */}
+          </div>
+          <div className=" mt-auto">
+            <p className="text-Marine-blue font-bold text-base">
+              Customizable Profile
+            </p>
+
+            <p className="text-Cool-gray text-sm">
+              Custom theme on your profile
+            </p>
+          </div>
+          <div className="ml-auto">
+            <p className="text-Purplish-blue text-sm">+$2/mo</p>
+          </div>
+        </div>
       </div>
 
       <div className="mt-auto">
@@ -86,4 +115,4 @@ function PersonalForm() {
   );
 }
 
-export default PersonalForm;
+export default PickAddOns;
